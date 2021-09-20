@@ -42,7 +42,7 @@ jobs:
 
 
   tests:
-    name: Run eslint
+    name: Run unit tests
     runs-on: ubuntu-20.04
     env: {FORCE_COLOR: 'true'}
     steps:
