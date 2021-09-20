@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/gacts/github-slug#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.2.5",
+    "slugify": "^1.6.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",

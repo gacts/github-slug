@@ -3,17 +3,23 @@
 name: WIP
 description: WIP
 
-inputs:
-  strip-version-prefix:
-    description: Strip the "v" prefix (v1.2.3 to 1.2.3), "true" or "false"
-    required: false
-    default: 'false'
-
 outputs:
+  is-branch:
+    description: Workflow was triggered on a branch ("true" or "false")
+  is-tag:
+    description: Workflow was triggered on a tag ("true" or "false")
+  branch-name:
+    description: Current branch name ("feature/Fix-Something" for example; only for runs on a branches)
+  branch-name-slug:
+    description: Slugged version of "branch-name" ("feature-fix-something" for example; only for runs on a branches)
+  tag-name:
+    description: Tag name ("Any-Tag" or "v1.2.3" for example; only for runs on a tags)
+  tag-name-slug:
+    description: Slugged version of "tag-name" ("any-tag" or "v1.2.3" for example; only for runs on a tags)
   version:
-    description: Version (v1.2.3 for example) value
+    description: Version value ("v1.2.3-RC1" for example). Available only for tags in semver format
   version-slug:
-    description: Version (v1-2-3 for example) value
+    description: Slugged version of "version" ("v1.2.3-RC1" for example). Available only for tags in semver format
 
 runs:
   using: node12

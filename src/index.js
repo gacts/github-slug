@@ -1,29 +1,37 @@
 const core = require('@actions/core')
-const envGithub = require('./env/github')
-const {getEnv} = require('./env/utils')
+const {isOnBranch, isOnTag, currentTagName, currentBranchName} = require('./exports')
+const slugify = require('slugify')
 
-// read action inputs
-const input = {
-  stripVersionPrefix: core.getInput('strip-version-prefix').toLowerCase() === 'true',
-}
+// slugify options
+const slugifyOptions = {replacement: '-', lower: true, strict: true}
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
-  const githubRef = getEnv(envGithub.GITHUB_REF), separator = '/'
+  const isBranch = isOnBranch(), isTag = isOnTag()
 
-  // check for the existence of environment variable GITHUB REF
-  if (githubRef !== undefined) {
-    const refParts = githubRef.split(separator) // [ 'refs', 'heads', 'feature', 'foo' ]
+  core.setOutput('is-branch', isBranch.toString())
+  core.setOutput('is-tag', isTag.toString())
 
-    if (refParts.length >= 3) {
-      const clearRef = refParts.slice(2, refParts.length).join(separator) // 'feature/foo'
+  if (isBranch) {
+    let branchName = currentBranchName()
 
-      console.log(clearRef)
-    } else {
-      core.warning(`Wrong environment variable "${envGithub.GITHUB_REF}": ${githubRef}`)
+    if (typeof branchName === 'string') {
+      branchName = branchName.trim()
+
+      core.setOutput('branch-name', branchName)
+      core.setOutput('branch-name-slug', slugify(branchName, slugifyOptions))
     }
-  } else {
-    core.warning(`Environment variable "${envGithub.GITHUB_REF}" was not found`)
+  }
+
+  if (isTag) {
+    let tagName = currentTagName()
+
+    if (typeof tagName === 'string') {
+      tagName = tagName.trim()
+
+      core.setOutput('tag-name', tagName)
+      core.setOutput('tag-name-slug', slugify(tagName, slugifyOptions))
+    }
   }
 }
 
