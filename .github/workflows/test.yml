@@ -1,25 +1,72 @@
-name: "units-test"
+name: tests
+
 on:
-  pull_request:
   push:
-    branches:
-      - main
-      - 'releases/*'
+    branches: [master, main]
+    tags-ignore: ['**']
+    paths-ignore: ['**.md']
+  pull_request:
+    paths-ignore: ['**.md']
 
 jobs:
-  # unit tests
-  units:
-    runs-on: ubuntu-latest
+  gitleaks:
+    name: Gitleaks
+    runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-    - run: npm ci
-    - run: npm test
+      - uses: actions/checkout@v2
+        with: {fetch-depth: 0}
 
-  # test action works running from the graph
-  test:
-    runs-on: ubuntu-latest
+      - uses: zricethezav/gitleaks-action@v1.6.0 # Action page: <https://github.com/zricethezav/gitleaks-action>
+
+  eslint:
+    name: Run eslint
+    runs-on: ubuntu-20.04
+    env: {FORCE_COLOR: 'true'}
     steps:
-    - uses: actions/checkout@v2
-    - uses: ./
-      with:
-        milliseconds: 1000
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with: {node-version: '12'}
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --no-progress --non-interactive
+
+      - run: yarn lint
+
+
+  tests:
+    name: Run eslint
+    runs-on: ubuntu-20.04
+    env: {FORCE_COLOR: 'true'}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with: {node-version: '12'}
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --no-progress --non-interactive
+
+      - run: yarn test
+
+  run-this-action:
+    name: Run action
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./
