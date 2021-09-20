@@ -69,4 +69,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: printenv | sort
+
       - uses: ./
+        with:
+          strip-version-prefix: true

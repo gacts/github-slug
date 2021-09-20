@@ -3,3 +3,5 @@
 </p>
 
 # WIP
+
+The main idea was looked here: <https://github.com/rlespinasse/github-slug-action>

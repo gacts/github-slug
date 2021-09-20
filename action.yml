@@ -3,9 +3,17 @@
 name: WIP
 description: WIP
 
+inputs:
+  strip-version-prefix:
+    description: Strip the "v" prefix (v1.2.3 to 1.2.3), "true" or "false"
+    required: false
+    default: 'false'
+
 outputs:
-  WIP:
-    description: WIP
+  version:
+    description: Version (v1.2.3 for example) value
+  version-slug:
+    description: Version (v1-2-3 for example) value
 
 runs:
   using: node12
