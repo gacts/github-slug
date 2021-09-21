@@ -36,14 +36,14 @@ async function run() {
 
   const t = new Table({head: ['Name', 'Description', 'How to use in your workflow', 'Value']})
 
+  core.startGroup('Setup')
   outputs.forEach((el) => {
     core.setOutput(el.name, el.value)
     t.push([el.name, el.description, `${'${{ steps.<this-step-id>.outputs.'+el.name+' }}'}`, el.value])
   })
-
-  core.startGroup('Outputs dump & usage help')
-  core.info(t.toString());
   core.endGroup()
+
+  core.info(t.toString());
 }
 
 class Output {
