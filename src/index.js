@@ -1,7 +1,6 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
 const {isOnBranch, isOnTag, currentTagName, currentBranchName} = require('./exports')
 const slugify = require('slugify')
-const chalk = require('chalk')
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
@@ -32,13 +31,8 @@ async function run() {
 
   outputs.forEach((item) => {
     core.setOutput(item.name, item.value)
+    core.info(`${item.description} (${'${{ steps.<this-step-id>.outputs.'+item.name+' }}'}): ${item.value}`)
   })
-
-  core.startGroup('Action outputs:')
-  outputs.forEach((item) => {
-    core.info(`${item.description} (${chalk.gray('${{ steps.<this-step-id>.outputs.'+item.name+' }}')}): ${chalk.green(item.value)}`)
-  })
-  core.endGroup()
 }
 
 // run the action
