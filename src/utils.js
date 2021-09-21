@@ -11,7 +11,7 @@ class ActionID {
   }
 
   isUsable() {
-    return this.currentID !== undefined && isNaN(parseFloat(this.currentID))
+    return this.currentID !== undefined && (isNaN(parseFloat(this.currentID)) && this.currentID !== '__self')
   }
 
   toString() {

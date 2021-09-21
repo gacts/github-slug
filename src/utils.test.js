@@ -30,6 +30,12 @@ describe('ActionID', () => {
       wantUsable: true,
       wantToString: 'foo-action-name',
     },
+    {
+      name: '__self is a reserved word and must be ignored',
+      giveEnv: [{name: envGithub.GITHUB_ACTION, value: '__self'}],
+      wantUsable: false,
+      wantToString: '',
+    },
   ].forEach((tt) => {
     test(tt.name, () => {
       if (tt.giveEnv !== undefined) {
