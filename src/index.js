@@ -1,5 +1,6 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
 const {isOnBranch, isOnTag, currentTag, currentBranch, version} = require('./exports')
+let Table = require('cli-table') // docs: <https://github.com/Automattic/cli-table>
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
@@ -33,10 +34,14 @@ async function run() {
   outputs.push(new Output('version-patch', ver.patch, 'Patch version'))
   outputs.push(new Output('version-semantic', ver.semantic, 'Semantic version'))
 
+  const t = new Table({head: ['Name', 'Description', 'How to use in your workflow', 'Value']})
+
   outputs.forEach((el) => {
     core.setOutput(el.name, el.value)
-    core.info(`${el.description} (${'${{ steps.<this-step-id>.outputs.'+el.name+' }}'}): ${el.value}`)
+    t.push([el.name, el.description, `${'${{ steps.<this-step-id>.outputs.'+el.name+' }}'}`, el.value])
   })
+
+  core.info(t.toString());
 }
 
 class Output {
