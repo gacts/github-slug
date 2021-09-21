@@ -70,5 +70,5 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: ./
-        env: {FORCE_COLORS: true}
+        env: {FORCE_COLOR: 'true'}
         id: slug
