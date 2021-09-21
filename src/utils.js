@@ -50,7 +50,7 @@ class CLITable {
    * @param {string[]} headers
    */
   constructor(headers) {
-    this.t = new Table({head: headers})
+    this.t = new Table({head: headers, style: {head: ['green']}})
   }
 
   /**

@@ -71,4 +71,3 @@ jobs:
 
       - uses: ./
         id: slug
-
