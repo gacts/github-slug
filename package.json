@@ -25,6 +25,7 @@
     "@actions/core": "^1.2.5",
     "babel-eslint": "^10.1.0",
     "cli-table": "^0.3.6",
+    "colors": "^1.4.0",
     "slugify": "^1.6.0"
   },
   "devDependencies": {
