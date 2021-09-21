@@ -41,7 +41,9 @@ async function run() {
     t.push([el.name, el.description, `${'${{ steps.<this-step-id>.outputs.'+el.name+' }}'}`, el.value])
   })
 
+  core.startGroup('Outputs dump & usage help')
   core.info(t.toString());
+  core.endGroup()
 }
 
 class Output {
