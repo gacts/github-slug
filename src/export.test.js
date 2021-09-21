@@ -2,6 +2,12 @@ const envGithub = require('./env/names')
 const {isOnBranch, isOnTag, currentBranch, currentTag, version} = require('./exports')
 
 describe('isOnBranch', () => {
+  beforeEach(() => {
+    Object.keys(envGithub).forEach(key => {
+      delete process.env[envGithub[key]]
+    })
+  });
+
   [
     {
       name: 'empty', want: false,
