@@ -1,6 +1,6 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
 const {isOnBranch, isOnTag, currentTag, currentBranch, version} = require('./exports')
-let Table = require('cli-table') // docs: <https://github.com/Automattic/cli-table>
+const {ActionID, Output, CLITable} = require('./utils')
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
@@ -34,36 +34,21 @@ async function run() {
   outputs.push(new Output('version-patch', ver.patch, 'Patch version'))
   outputs.push(new Output('version-semantic', ver.semantic, 'Semantic version'))
 
-  const t = new Table({head: ['Name', 'Description', 'How to use in your workflow', 'Value']})
+  const t = new CLITable(['Name', 'Description', 'How to use in your workflow', 'Value']), act = new ActionID
 
   core.startGroup('Setup')
   outputs.forEach((el) => {
     core.setOutput(el.name, el.value)
-    t.push([el.name, el.description, `${'${{ steps.<this-step-id>.outputs.'+el.name+' }}'}`, el.value])
+    t.push([
+      el.name,
+      el.description,
+      `${'${{ steps.' + (act.isUsable() ? act.toString() : '<this-step-id>') + '.outputs.' + el.name + ' }}'}`,
+      el.value,
+    ])
   })
   core.endGroup()
 
-  core.info(t.toString());
-}
-
-class Output {
-  /** @type {string} */
-  name = ''
-  /** @type {any} */
-  value
-  /** @type {string} */
-  description = ''
-
-  /**
-   * @param {string} name
-   * @param {any} value
-   * @param {string} description
-   */
-  constructor(name, value, description) {
-    this.name = name
-    this.description = description
-    this.value = value
-  }
+  core.info(t.toString())
 }
 
 // run the action

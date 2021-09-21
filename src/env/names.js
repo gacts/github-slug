@@ -10,6 +10,9 @@ module.exports = Object.freeze({
   // The [job_id](https://git.io/JzcLJ) of the current job. Eg.: `Run tests`
   GITHUB_JOB: 'GITHUB_JOB',
 
+  // The unique identifier (id) of the action
+  GITHUB_ACTION: 'GITHUB_ACTION',
+
   // The name of the person or app that initiated the workflow. Eg.: `octocat`
   GITHUB_ACTOR: 'GITHUB_ACTOR',
 
