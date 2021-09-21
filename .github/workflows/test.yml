@@ -69,10 +69,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: printenv | sort
-
-      - uses: ./
-
       - uses: ./
         id: slug
 
