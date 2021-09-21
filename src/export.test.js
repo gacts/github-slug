@@ -1,13 +1,13 @@
 const envGithub = require('./env/names')
 const {isOnBranch, isOnTag, currentBranch, currentTag, version} = require('./exports')
 
-describe('isOnBranch', () => {
-  beforeEach(() => {
-    Object.keys(envGithub).forEach(key => {
-      delete process.env[envGithub[key]]
-    })
-  });
+beforeEach(() => {
+  Object.keys(envGithub).forEach(key => {
+    delete process.env[envGithub[key]]
+  })
+})
 
+describe('isOnBranch', () => {
   [
     {
       name: 'empty', want: false,
@@ -52,12 +52,6 @@ describe('isOnBranch', () => {
 })
 
 describe('isOnTag', () => {
-  beforeEach(() => {
-    Object.keys(envGithub).forEach(key => {
-      delete process.env[envGithub[key]]
-    })
-  });
-
   [
     {
       name: 'empty', want: false,
@@ -102,12 +96,6 @@ describe('isOnTag', () => {
 })
 
 describe('currentBranch', () => {
-  beforeEach(() => {
-    Object.keys(envGithub).forEach(key => {
-      delete process.env[envGithub[key]]
-    })
-  });
-
   [
     {
       name: 'branch name from the GITHUB_HEAD_REF',
@@ -163,12 +151,6 @@ describe('currentBranch', () => {
 })
 
 describe('currentTag', () => {
-  beforeEach(() => {
-    Object.keys(envGithub).forEach(key => {
-      delete process.env[envGithub[key]]
-    })
-  });
-
   [
     {
       name: 'common value in GITHUB_REF',
@@ -218,12 +200,6 @@ describe('currentTag', () => {
 })
 
 describe('version', () => {
-  beforeEach(() => {
-    Object.keys(envGithub).forEach(key => {
-      delete process.env[envGithub[key]]
-    })
-  });
-
   [
     {
       name: 'fallback on empty environment',
