@@ -1,38 +1,40 @@
-const core = require('@actions/core')
+const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
 const {isOnBranch, isOnTag, currentTagName, currentBranchName} = require('./exports')
 const slugify = require('slugify')
 
-// slugify options
-const slugifyOptions = {replacement: '-', lower: true, strict: true}
-
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
-  const isBranch = isOnBranch(), isTag = isOnTag()
+  // slugify options
+  const slugifyOptions = {replacement: '-', lower: true, strict: true}
 
-  core.setOutput('is-branch', isBranch.toString())
-  core.setOutput('is-tag', isTag.toString())
+  /** @var {Array.<{name: String, value: any, description: String}>} */
+  const outputs = []
 
-  if (isBranch) {
-    let branchName = currentBranchName()
+  const isBranch = isOnBranch(), isTag = isOnTag(), branchName = currentBranchName(), tagName = currentTagName()
 
-    if (typeof branchName === 'string') {
-      branchName = branchName.trim()
+  outputs.push({name: 'is-branch', value: isBranch.toString(), description: 'Is branch'})
+  outputs.push({name: 'is-tag', value: isTag.toString(), description: 'Is tag'})
 
-      core.setOutput('branch-name', branchName)
-      core.setOutput('branch-name-slug', slugify(branchName, slugifyOptions))
-    }
+  if (isBranch && typeof branchName === 'string') {
+    const branch = branchName.trim(), branchSlug = slugify(branch, slugifyOptions)
+
+    outputs.push({name: 'branch-name', value: branch, description: 'Branch name'})
+    outputs.push({name: 'branch-name-slug', value: branchSlug, description: 'Branch name slug'})
   }
 
-  if (isTag) {
-    let tagName = currentTagName()
+  if (isTag && typeof tagName === 'string') {
+    const tag = tagName.trim(), tagSlug = slugify(tag, slugifyOptions)
 
-    if (typeof tagName === 'string') {
-      tagName = tagName.trim()
-
-      core.setOutput('tag-name', tagName)
-      core.setOutput('tag-name-slug', slugify(tagName, slugifyOptions))
-    }
+    outputs.push({name: 'tag-name', value: tag, description: 'Tag name'})
+    outputs.push({name: 'tag-name-slug', value: tagSlug, description: 'Tag name slug'})
   }
+
+  core.startGroup('Outputs')
+  outputs.forEach((item) => {
+    core.setOutput(item.name, item.value)
+    core.info(`${item.description} (${item.name}): ${item.value}`)
+  })
+  core.endGroup()
 }
 
 // run the action

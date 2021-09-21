@@ -71,5 +71,3 @@ jobs:
 
       - uses: ./
 
-      - uses: ./
-        env: {ACTIONS_STEP_DEBUG: true}
