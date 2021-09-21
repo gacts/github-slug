@@ -13,7 +13,7 @@ function getEnv(name) {
     }
   }
 
-  return undefined;
+  return undefined
 }
 
 module.exports = {

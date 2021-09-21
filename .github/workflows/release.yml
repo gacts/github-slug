@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  run-this-action:
+  run-this-action-on-release:
     name: Run action
     runs-on: ubuntu-20.04
     steps:

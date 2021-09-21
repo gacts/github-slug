@@ -5,9 +5,9 @@ description: WIP
 
 outputs:
   is-branch:
-    description: Workflow was triggered on a branch ("true" or "false")
+    description: Workflow was triggered on a branch ("true"|"false")
   is-tag:
-    description: Workflow was triggered on a tag ("true" or "false")
+    description: Workflow was triggered on a tag ("true"|"false")
   branch-name:
     description: Current branch name ("feature/Fix-Something" for example; only for runs on a branches)
   branch-name-slug:
@@ -17,9 +17,15 @@ outputs:
   tag-name-slug:
     description: Slugged version of "tag-name" ("any-tag" or "v1.2.3" for example; only for runs on a tags)
   version:
-    description: Version value ("v1.2.3-RC1" for example). Available only for tags in semver format
-  version-slug:
-    description: Slugged version of "version" ("v1.2.3-RC1" for example). Available only for tags in semver format
+    description: Version value ("1.2.3-rc1" for example). Prefix rejected
+  version-major:
+    description: ''
+  version-minor:
+    description: ''
+  version-patch:
+    description: ''
+  version-semantic:
+    description: ''
 
 runs:
   using: node12

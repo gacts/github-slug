@@ -1,38 +1,62 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
-const {isOnBranch, isOnTag, currentTagName, currentBranchName} = require('./exports')
-const slugify = require('slugify')
+const {isOnBranch, isOnTag, currentTag, currentBranch, version} = require('./exports')
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
-  // slugify options
-  const slugifyOptions = {replacement: '-', lower: true, strict: true}
-
-  /** @var {Array.<{name: String, value: any, description: String}>} */
+  /** @var {Output[]} */
   const outputs = []
 
-  const isBranch = isOnBranch(), isTag = isOnTag(), branchName = currentBranchName(), tagName = currentTagName()
+  const isBranch = isOnBranch(), isTag = isOnTag()
 
-  outputs.push({name: 'is-branch', value: isBranch.toString(), description: 'Is branch'})
-  outputs.push({name: 'is-tag', value: isTag.toString(), description: 'Is tag'})
+  outputs.push(new Output('is-branch', isBranch.toString(), 'Is branch'))
+  outputs.push(new Output('is-tag', isTag.toString(), 'Is tag'))
 
-  if (isBranch && typeof branchName === 'string') {
-    const branch = branchName.trim(), branchSlug = slugify(branch, slugifyOptions)
+  const branch = currentBranch()
 
-    outputs.push({name: 'branch-name', value: branch, description: 'Branch name'})
-    outputs.push({name: 'branch-name-slug', value: branchSlug, description: 'Branch name slug'})
+  if (isBranch && branch !== undefined) {
+    outputs.push(new Output('branch-name', branch.name, 'Branch name'))
+    outputs.push(new Output('branch-name-slug', branch.slug, 'Branch name slug'))
   }
 
-  if (isTag && typeof tagName === 'string') {
-    const tag = tagName.trim(), tagSlug = slugify(tag, slugifyOptions)
+  const tag = currentTag()
 
-    outputs.push({name: 'tag-name', value: tag, description: 'Tag name'})
-    outputs.push({name: 'tag-name-slug', value: tagSlug, description: 'Tag name slug'})
+  if (isTag && tag !== undefined) {
+    outputs.push(new Output('tag-name', tag.name, 'Tag name'))
+    outputs.push(new Output('tag-name-slug', tag.slug, 'Tag name slug'))
   }
 
-  outputs.forEach((item) => {
-    core.setOutput(item.name, item.value)
-    core.info(`${item.description} (${'${{ steps.<this-step-id>.outputs.'+item.name+' }}'}): ${item.value}`)
+  const ver = version()
+
+  outputs.push(new Output('version', ver.version, 'Version'))
+  outputs.push(new Output('version-major', ver.major, 'Major version'))
+  outputs.push(new Output('version-minor', ver.minor, 'Minor version'))
+  outputs.push(new Output('version-patch', ver.patch, 'Patch version'))
+  outputs.push(new Output('version-semantic', ver.semantic, 'Semantic version'))
+
+  outputs.forEach((el) => {
+    core.setOutput(el.name, el.value)
+    core.info(`${el.description} (${'${{ steps.<this-step-id>.outputs.'+el.name+' }}'}): ${el.value}`)
   })
+}
+
+class Output {
+  /** @type {string} */
+  name = ''
+  /** @type {any} */
+  value
+  /** @type {string} */
+  description = ''
+
+  /**
+   * @param {string} name
+   * @param {any} value
+   * @param {string} description
+   */
+  constructor(name, value, description) {
+    this.name = name
+    this.description = description
+    this.value = value
+  }
 }
 
 // run the action

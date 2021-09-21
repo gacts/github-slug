@@ -61,7 +61,7 @@ jobs:
       - if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --no-progress --non-interactive
 
-      - run: yarn test
+      - run: yarn test --verbose
 
   run-this-action:
     name: Run action
