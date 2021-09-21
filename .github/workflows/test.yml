@@ -69,7 +69,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: prinenv | sort
+      - run: printenv | sort
 
       - uses: ./
 
