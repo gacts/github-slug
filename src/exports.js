@@ -15,7 +15,7 @@ function isOnBranch() {
   if (githubRef !== undefined) {
     const parts = githubRef.split(separator)
 
-    return parts.length >= 3 && parts[1].trim().toLowerCase() === 'heads'
+    return parts.length >= 3 && ['heads', 'pull'].includes(parts[1].trim().toLowerCase())
   }
 
   return false
