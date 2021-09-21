@@ -1,7 +1,7 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
 const {isOnBranch, isOnTag, currentTag, currentBranch, version} = require('./exports')
 const {ActionID, Output, CLITable} = require('./utils')
-const colors = require('colors')
+const colors = require('colors') // docs: <https://github.com/marak/colors.js>
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
@@ -49,7 +49,7 @@ async function run() {
   })
   core.endGroup()
 
-  core.info(t.toString())
+  console.log(t.toString())
 }
 
 // run the action
