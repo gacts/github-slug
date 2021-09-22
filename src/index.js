@@ -53,6 +53,8 @@ async function run() {
 
 // run the action
 try {
+  process.env['FORCE_COLOR'] = '1'
+
   run()
 } catch (error) {
   core.setFailed(error.message)

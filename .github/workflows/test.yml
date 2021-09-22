@@ -71,4 +71,3 @@ jobs:
 
       - uses: ./
         id: slug
-        env: {FORCE_COLOR: 3, TERM: xterm-256color}
