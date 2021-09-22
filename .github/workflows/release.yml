@@ -25,7 +25,7 @@ jobs:
           git remote set-url origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/$REPO_PATH.git"
 
       - name: Update major tag
-        env: {VERSION: "${{ steps.slug.outputs.version-major }"}
+        env: {VERSION: "${{ steps.slug.outputs.version-major }}"}
         run: |
           git tag -fa "v$VERSION" -m "Update v$VERSION tag (using GitHub actions)"
           git push --set-upstream origin "v$VERSION" --force
