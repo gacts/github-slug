@@ -21,9 +21,10 @@ jobs:
         run: |
           git config --local user.email 'actions@github.com'
           git config --local user.name "${{ github.actor }}"
+          git remote set-url origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}.git"
 
       - name: Create tag
         run: git tag -fa "v${{ steps.slug.outputs.version-major }}" -m "Update v${{ steps.slug.outputs.version-major }} tag (using GitHub actions)"
 
       - name: Push tag
-        run: git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}.git" "v${{ steps.slug.outputs.version-major }}" --force
+        run: git push "v${{ steps.slug.outputs.version-major }}" --force #  --set-upstream origin
