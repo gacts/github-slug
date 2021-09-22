@@ -71,3 +71,4 @@ jobs:
 
       - uses: ./
         id: slug
+        env: {FORCE_COLOR: 3}
