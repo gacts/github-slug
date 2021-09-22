@@ -5,33 +5,25 @@ on:
     types: [published]
 
 jobs:
-  run-this-action-on-release:
-    name: Run action
+  update-git-tag: # Reason: <https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations>
+    name: Update latest major git tag
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
 
-      - uses: ./
+      - name: Run this action
+        uses: ./
+        id: slug
 
-#  update-git-tag: # Reason: <https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations>
-#    name: Update latest major git tag
-#    runs-on: ubuntu-20.04
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 1
-#
-#      - name: Generate values
-#        id: values
-#        run: echo "::set-output name=major::`echo ${GITHUB_REF##*/} | sed 's#^[vV]\([0-9]*\)\..*$#\1#'`"
-#
-#      - name: Setup git
-#        run: |
-#          git config --local user.email 'actions@github.com'
-#          git config --local user.name "${{ github.actor }}"
-#
-#      - name: Create tag
-#        run: git tag -fa "v${{ steps.values.outputs.major }}" -m "Update v${{ steps.values.outputs.major }} tag (using GitHub actions)"
-#
-#      - name: Push tag
-#        run: git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}.git" "v${{ steps.values.outputs.major }}" --force
+      - name: Setup git
+        run: |
+          git config --local user.email 'actions@github.com'
+          git config --local user.name "${{ github.actor }}"
+
+      - name: Create tag
+        run: git tag -fa "v${{ steps.slug.outputs.version-major }}" -m "Update v${{ steps.slug.outputs.version-major }} tag (using GitHub actions)"
+
+      - name: Push tag
+        run: git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}.git" "v${{ steps.slug.outputs.version-major }}" --force
