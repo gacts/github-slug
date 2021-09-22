@@ -59,7 +59,7 @@ New versions releasing scenario:
 - Commit and push changes (including `dist` directory changes - this is important) into the `master` branch
 - Publish new release using repo releases page (git tag should follow `vX.Y.Z` format)
 
-Major git tag (`v1` if you publish `v1.Y.Z` release) will be updated automatically.
+Major and minor git tags (`v1` and `v1.2` if you publish `v1.2.Z` release) will be updated automatically.
 
 ## Support
 
