@@ -50,6 +50,16 @@ Semantic version value                 | `${{ steps.slug.outputs.version-semanti
 
 > Tip: Use [Dependabot][use_dependabot] to maintain your `gacts/github-slug` version updated in your GitHub workflows.
 
+## Releasing
+
+New versions releasing scenario:
+
+- Build the action distribution (`make build` or `yarn build`)
+- Commit and push changes (including `dist` directory changes - this is important) into the `master` branch
+- Publish new release using repo releases page (git tag should follow `vX.Y.Z` format)
+
+Major git tag (`v1` if you publish `v1.Y.Z` release) will be updated automatically.
+
 ## Support
 
 [![Issues][badge_issues]][link_issues]

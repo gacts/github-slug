@@ -55,7 +55,7 @@ async function run() {
   })
   core.endGroup()
 
-  console.log(t.toString())
+  core.info(t.toString())
 }
 
 // run the action

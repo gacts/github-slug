@@ -3,10 +3,6 @@
 name: GitHub slug
 description: GitHub Action to expose slug values of branch/tag/version inside your GitHub workflow
 
-branding:
-  icon: tag
-  color: orange
-
 inputs:
   to-slug:
     description: Slugify this value (string)
@@ -56,3 +52,7 @@ outputs:
 runs:
   using: node12
   main: dist/index.js
+
+branding:
+  icon: tag
+  color: orange
