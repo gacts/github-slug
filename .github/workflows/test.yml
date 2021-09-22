@@ -84,7 +84,8 @@ jobs:
 
       - run: yarn build
 
-      - run: git diff --diff-filter=ACMUXTR --name-only | grep dist/ && ecit 1 || exit 0
+      - name: You should build and commit a distributive directory if this step fails
+        run: git diff --diff-filter=ACMUXTR --name-only | grep dist/ && exit 1 || exit 0
 
   run-this-action:
     name: Run action
