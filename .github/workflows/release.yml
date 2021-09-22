@@ -18,20 +18,20 @@ jobs:
         id: slug
 
       - name: Setup git
-        env: {REPO_PATH: ${{ github.repository_owner }}/${{ github.event.repository.name }}}
+        env: {REPO_PATH: "${{ github.repository_owner }}/${{ github.event.repository.name }}"}
         run: |
           git config --local user.email 'actions@github.com'
           git config --local user.name "${{ github.actor }}"
           git remote set-url origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/$REPO_PATH.git"
 
       - name: Update major tag
-        env: {VERSION: ${{ steps.slug.outputs.version-major }}
+        env: {VERSION: "${{ steps.slug.outputs.version-major }"}
         run: |
           git tag -fa "v$VERSION" -m "Update v$VERSION tag (using GitHub actions)"
           git push --set-upstream origin "v$VERSION" --force
 
       - name: Update minor tag
-        env: {VERSION: ${{ steps.slug.outputs.version-major }}.${{ steps.slug.outputs.version-minor }}}
+        env: {VERSION: "${{ steps.slug.outputs.version-major }}.${{ steps.slug.outputs.version-minor }}"}
         run: |
           git tag -fa "v$VERSION" -m "Update v$VERSION tag (using GitHub actions)"
           git push --set-upstream origin "v$VERSION" --force
