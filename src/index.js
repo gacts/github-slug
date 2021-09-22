@@ -1,6 +1,7 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
 const {isOnBranch, isOnTag, currentTag, currentBranch, version} = require('./exports')
 const {ActionID, Output, CLITable} = require('./utils')
+const {slug} = require('./formatters')
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
@@ -9,30 +10,36 @@ async function run() {
 
   const isBranch = isOnBranch(), isTag = isOnTag()
 
-  outputs.push(new Output('is-branch', isBranch.toString(), 'Is branch'))
-  outputs.push(new Output('is-tag', isTag.toString(), 'Is tag'))
+  outputs.push(new Output('is-branch', isBranch.toString(), 'The workflow was triggered on a branch'))
+  outputs.push(new Output('is-tag', isTag.toString(), 'The workflow was triggered on a tag'))
 
   const branch = currentBranch()
 
   if (isBranch && branch !== undefined) {
-    outputs.push(new Output('branch-name', branch.name, 'Branch name'))
-    outputs.push(new Output('branch-name-slug', branch.slug, 'Branch name slug'))
+    outputs.push(new Output('branch-name', branch.name, 'Current branch name'))
+    outputs.push(new Output('branch-name-slug', branch.slug, 'A slugged version of "branch-name"'))
   }
 
   const tag = currentTag()
 
   if (isTag && tag !== undefined) {
-    outputs.push(new Output('tag-name', tag.name, 'Tag name'))
-    outputs.push(new Output('tag-name-slug', tag.slug, 'Tag name slug'))
+    outputs.push(new Output('tag-name', tag.name, 'Current tag name'))
+    outputs.push(new Output('tag-name-slug', tag.slug, 'A slugged version of "tag-name"'))
   }
 
   const ver = version()
 
-  outputs.push(new Output('version', ver.version, 'Version'))
+  outputs.push(new Output('version', ver.version, 'Cleared and slugged version value'))
   outputs.push(new Output('version-major', ver.major, 'Major version'))
   outputs.push(new Output('version-minor', ver.minor, 'Minor version'))
   outputs.push(new Output('version-patch', ver.patch, 'Patch version'))
-  outputs.push(new Output('version-semantic', ver.semantic, 'Semantic version'))
+  outputs.push(new Output('version-semantic', ver.semantic, 'Semantic version value'))
+
+  const toSlug = core.getInput('to-slug').trim()
+
+  if (toSlug.length > 0) {
+    outputs.push(new Output('slug', slug(toSlug), 'A slugged version of "to-slug" input'))
+  }
 
   const t = new CLITable(['Name', 'Description', 'How to use in your workflow', 'Value']), act = new ActionID
 
@@ -53,8 +60,6 @@ async function run() {
 
 // run the action
 try {
-  process.env['FORCE_COLOR'] = '1'
-
   run()
 } catch (error) {
   core.setFailed(error.message)

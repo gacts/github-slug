@@ -40,7 +40,6 @@ jobs:
 
       - run: yarn lint
 
-
   tests:
     name: Run unit tests
     runs-on: ubuntu-20.04
@@ -69,5 +68,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./
+      - name: Run this action
+        uses: ./
         id: slug
+        with:
+          to-slug: |
+            foo bar
+            123
+            baz !@#^*()_+-=[]{};: blah
+
+      - run: if [[ '${{ steps.slug.outputs.is-branch }}' != 'true' ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.is-tag }}' != 'false' ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.version-major }}' != 0 ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.version-minor }}' != 0 ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.version-patch }}' != 0 ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.slug }}' != 'foo-bar-123-baz-blah' ]]; then exit 1; fi

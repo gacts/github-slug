@@ -41,14 +41,17 @@ class VersionInfo {
             switch (i) {
               case 0: {
                 this.major = num
+                parts[i] = num // replace original string with parsed number (omit leading zeros)
                 break
               }
               case 1: {
                 this.minor = num
+                parts[i] = num
                 break
               }
               case 2: {
                 this.patch = num
+                parts[i] = num
                 break
               }
             }

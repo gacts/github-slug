@@ -48,6 +48,7 @@ describe('VersionInfo constructor', () => {
     {give: 'V2-rc1', wantMajor: 2, wantMinor: 0, wantPath: 0, wantFormatted: '2-rc1', wantSemantic: '2.0.0-rc1'},
     {give: 'v.1.2+rc1', wantMajor: 1, wantMinor: 2, wantPath: 0, wantFormatted: '1.2-rc1', wantSemantic: '1.2.0-rc1'},
     {give: 'VERSION_1.2-3+rc2', wantMajor: 1, wantMinor: 2, wantPath: 0, wantFormatted: '1.2-3-rc2', wantSemantic: '1.2.0-3-rc2'},
+    {give: '001.0003.00000002', wantMajor: 1, wantMinor: 3, wantPath: 2, wantFormatted: '1.3.2', wantSemantic: '1.3.2'},
 
     {give: "\t v1.2.3\t-RC1\r\n \t", wantMajor: 1, wantMinor: 2, wantPath: 3, wantFormatted: '1.2.3-rc1', wantSemantic: '1.2.3-rc1'},
     {give: 'v1 some-feature', wantMajor: 1, wantMinor: 0, wantPath: 0, wantFormatted: '1-some-feature', wantSemantic: '1.0.0-some-feature'},
