@@ -1,12 +1,58 @@
 # Metadata syntax: <https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions>
 
-name: WIP
-description: WIP
+name: GitHub slug
+description: GitHub Action to expose slug values of branch/tag/version inside your GitHub workflow
+
+inputs:
+  to-slug:
+    description: Slugify this value (string)
+    required: false
 
 outputs:
-  WIP:
-    description: WIP
+  slug:
+    description: A slugged version of "to-slug" input (string)
+
+  is-branch:
+    description: The workflow was triggered on a branch ("true"|"false")
+
+  is-tag:
+    description: The workflow was triggered on a tag ("true"|"false")
+
+  branch-name:
+    description: Current branch name ("feature/Fix-Something" for example; only for runs on a branch)
+
+  branch-name-slug:
+    description: A slugged version of "branch-name" ("feature-fix-something" for example; only for runs on a branch)
+
+  tag-name:
+    description: Current tag name ("Any-Tag" or "v1.2.3" for example; only for runs on tags)
+
+  tag-name-slug:
+    description: A slugged version of "tag-name" ("any-tag" or "v1.2.3" for example; only for runs on a tag)
+
+  version:
+    description: |
+      Cleared and slugged version value ("1.2.3-anything-else" for example). Prefix "v|ver|version" will be rejected.
+      Available for builds on branches and tags (always non-empty)
+
+  version-major:
+    description: Major version ("0" by default, "3" while build on tag/branch "3.02.998")
+
+  version-minor:
+    description: Minor version ("0" by default, "2" while build on tag/branch "3.02.998")
+
+  version-patch:
+    description: Patch version ("0" by default, "998" while build on tag/branch "3.02.998")
+
+  version-semantic:
+    description: |
+      Semantic version value in format "MAJOR.MINOR.PATCH(-tag-suffix-or-branch-name)". Prefix "v|ver|version" will
+      be rejected. Available for builds on branches and tags (always non-empty)
 
 runs:
   using: node12
   main: dist/index.js
+
+branding:
+  icon: tag
+  color: orange

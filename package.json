@@ -22,11 +22,14 @@
   },
   "homepage": "https://github.com/gacts/github-slug#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.2.5",
+    "cli-table": "^0.3.6",
+    "slugify": "^1.6.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "@vercel/ncc": "^0.31.1",
-    "eslint": "^7.4.0",
+    "eslint": "^7.32.0",
     "jest": "^27.2.1"
   }
 }

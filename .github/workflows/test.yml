@@ -40,7 +40,6 @@ jobs:
 
       - run: yarn lint
 
-
   tests:
     name: Run unit tests
     runs-on: ubuntu-20.04
@@ -61,7 +60,32 @@ jobs:
       - if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --no-progress --non-interactive
 
-      - run: yarn test
+      - run: yarn test --verbose
+
+  dist-built:
+    name: Check distributive built state
+    runs-on: ubuntu-20.04
+    env: {FORCE_COLOR: 'true'}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with: {node-version: '12'}
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --no-progress --non-interactive
+
+      - run: yarn build
+
+      - name: You should build and commit a distributive directory if this step fails
+        run: git diff --diff-filter=ACMUXTR --name-only | grep dist/ && exit 1 || exit 0
 
   run-this-action:
     name: Run action
@@ -69,4 +93,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./
+      - name: Run this action
+        uses: ./
+        id: slug
+        with:
+          to-slug: |
+            foo bar
+            123
+            baz !@#^*()_+-=[]{};: blah
+
+      - run: if [[ '${{ steps.slug.outputs.is-branch }}' != 'true' ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.is-tag }}' != 'false' ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.version-major }}' != 0 ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.version-minor }}' != 0 ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.version-patch }}' != 0 ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.slug }}' != 'foo-bar-123-baz-blah' ]]; then exit 1; fi
