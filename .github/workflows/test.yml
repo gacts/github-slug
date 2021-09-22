@@ -63,7 +63,7 @@ jobs:
       - run: yarn test --verbose
 
   dist-built:
-    name: Disributive was built?
+    name: Check distributive built state
     runs-on: ubuntu-20.04
     env: {FORCE_COLOR: 'true'}
     steps:
@@ -83,6 +83,8 @@ jobs:
         run: yarn install --frozen-lockfile --no-progress --non-interactive
 
       - run: yarn build
+
+      - run: git diff --diff-filter=ACMUXTR --name-only | grep dist/ && ecit 1 || exit 0
 
   run-this-action:
     name: Run action
