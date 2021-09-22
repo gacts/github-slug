@@ -43,7 +43,7 @@ async function run() {
 
   const t = new CLITable(['Name', 'Description', 'How to use in your workflow', 'Value']), act = new ActionID
 
-  core.startGroup('Setup')
+  core.startGroup('Setup action')
   outputs.forEach((el) => {
     core.setOutput(el.name, el.value)
     t.push([
