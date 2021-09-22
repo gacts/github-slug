@@ -27,4 +27,4 @@ jobs:
         run: git tag -fa "v${{ steps.slug.outputs.version-major }}" -m "Update v${{ steps.slug.outputs.version-major }} tag (using GitHub actions)"
 
       - name: Push tag
-        run: git push "v${{ steps.slug.outputs.version-major }}" --force #  --set-upstream origin
+        run: git push --set-upstream origin "v${{ steps.slug.outputs.version-major }}" --force
