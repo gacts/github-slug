@@ -50,6 +50,20 @@ Semantic version value                 | `${{ steps.slug.outputs.version-semanti
 
 > Tip: Use [Dependabot][use_dependabot] to maintain your `gacts/github-slug` version updated in your GitHub workflows.
 
+## Examples
+
+On the branch:
+
+<p align="center">
+  <img src="https://hsto.org/webt/y7/pl/ov/y7plovzqsmgjafdbwncrlysiaqm.png" alt="on the tag" />
+</p>
+
+On the tag:
+
+<p align="center">
+  <img src="https://hsto.org/webt/ah/qe/_e/ahqe_e03-tvp-whxpn0g6_q_vo8.png" alt="on the branch" />
+</p>
+
 ## Releasing
 
 New versions releasing scenario:
