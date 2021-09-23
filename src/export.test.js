@@ -1,5 +1,5 @@
 const envGithub = require('./env/names')
-const {isOnBranch, isOnTag, currentBranch, currentTag, version} = require('./exports')
+const {isOnBranch, isOnTag, currentBranch, currentTag, commitHash, version} = require('./exports')
 
 beforeEach(() => {
   Object.keys(envGithub).forEach(key => {
@@ -189,6 +189,46 @@ describe('currentTag', () => {
       }
 
       expect(currentTag()).toEqual(tt.want)
+
+      if (tt.giveEnv !== undefined) {
+        tt.giveEnv.forEach(env => { // teardown env
+          delete process.env[env.name]
+        })
+      }
+    })
+  })
+})
+
+describe('commitHash', () => {
+  [
+    {
+      name: 'empty',
+      giveEnv: [],
+      want: undefined,
+    },
+    {
+      name: 'common usage',
+      giveEnv: [
+        {name: envGithub.GITHUB_SHA, value: '1B 7578d\td5588727359951d82aa67442a19a9963f '},
+      ],
+      want: {long: '1b7578dd5588727359951d82aa67442a19a9963f', short: '1b7578d'},
+    },
+    {
+      name: 'too short hash',
+      giveEnv: [
+        {name: envGithub.GITHUB_SHA, value: '1b7578'},
+      ],
+      want: undefined,
+    },
+  ].forEach((tt) => {
+    test(tt.name, () => {
+      if (tt.giveEnv !== undefined) {
+        tt.giveEnv.forEach(env => { // setup env
+          process.env[env.name] = env.value
+        })
+      }
+
+      expect(commitHash()).toEqual(tt.want)
 
       if (tt.giveEnv !== undefined) {
         tt.giveEnv.forEach(env => { // teardown env

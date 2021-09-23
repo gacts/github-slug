@@ -30,6 +30,12 @@ outputs:
   tag-name-slug:
     description: A slugged version of "tag-name" ("any-tag" or "v1.2.3" for example; only for runs on a tag)
 
+  commit-hash:
+    description: The commit SHA hash that triggered the workflow ("ffac537e6cbbf934b08745a378932722df287a53" for example)
+
+  commit-hash-short:
+    description: Short (7 first characters) commit SHA hash ("ffac537" for example)
+
   version:
     description: |
       Cleared and slugged version value ("1.2.3-anything-else" for example). Prefix "v|ver|version" will be rejected.

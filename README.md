@@ -42,6 +42,8 @@ Current branch name                    | `${{ steps.slug.outputs.branch-name }}`
 A slugged version of `branch-name`     | `${{ steps.slug.outputs.branch-name-slug }}` | `fix-foo-bar`/`<empty-value>`
 Current tag name                       | `${{ steps.slug.outputs.tag-name }}`         | `<empty-value>`/`v1.2-rc1_Lorem`
 A slugged version of `tag-name`        | `${{ steps.slug.outputs.tag-name-slug }}`    | `<empty-value>`/`v1-2-rc1-lorem`
+The commit SHA hash that triggered the workflow | `${{ steps.slug.outputs.commit-hash }}`    | `ffac537e6cbbf934b08745a378932722df287a53`
+Short _(7 first characters)_ commit SHA hash | `${{ steps.slug.outputs.commit-hash-short }}` | `ffac537`
 Cleared and slugged version value (prefix `v/ver/version[._-]` will be rejected) | `${{ steps.slug.outputs.version }}` | `fix-foo-bar`/`1.2-rc1-lorem`
 Major version                          | `${{ steps.slug.outputs.version-major }}`    | `0`/`1`
 Minor version                          | `${{ steps.slug.outputs.version-minor }}`    | `0`/`2`
