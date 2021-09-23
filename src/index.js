@@ -1,5 +1,5 @@
 const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
-const {isOnBranch, isOnTag, currentTag, currentBranch, version} = require('./exports')
+const {isOnBranch, isOnTag, currentTag, currentBranch, gitHash, version} = require('./exports')
 const {ActionID, Output, CLITable} = require('./utils')
 const {slug} = require('./formatters')
 
@@ -25,6 +25,13 @@ async function run() {
   if (isTag && tag !== undefined) {
     outputs.push(new Output('tag-name', tag.name, 'Current tag name'))
     outputs.push(new Output('tag-name-slug', tag.slug, 'A slugged version of "tag-name"'))
+  }
+
+  const hash = gitHash()
+
+  if (hash !== undefined) {
+    outputs.push(new Output('commit-hash', hash.long, 'The commit SHA hash'))
+    outputs.push(new Output('commit-hash-short', hash.short, 'Short commit SHA hash'))
   }
 
   const ver = version()

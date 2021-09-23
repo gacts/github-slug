@@ -4,6 +4,12 @@ All notable changes to this package will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.1.0
+
+### Added
+
+- Outputs `commit-hash` (the commit SHA hash) and `commit-hash-short` (short commit SHA hash)
+
 ## v1.0.0
 
 ### Added

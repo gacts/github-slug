@@ -140,6 +140,41 @@ function currentTag() {
   return undefined
 }
 
+class CommitHash {
+  /** @type {string} */
+  long = ''
+  /** @type {string} */
+  short = ''
+
+  /**
+   * @param {string} long
+   * @param {string} short
+   */
+  constructor(long, short) {
+    this.long = long
+    this.short = short
+  }
+}
+
+/**
+ * Returns current commit git hash.
+ *
+ * @return {CommitHash|undefined}
+ */
+function commitHash() {
+  const hash = getEnv(envGithub.GITHUB_SHA)
+
+  if (typeof hash === 'string' && hash.length >= 7) {
+    const clear = hash.toLowerCase().replace(/([^abcdef0-9]+)/g, '')
+
+    if (clear.length >= 7) {
+      return new CommitHash(clear, clear.substring(0, 7))
+    }
+  }
+
+  return undefined
+}
+
 class Version {
   /** @type {string} */
   version = ''
@@ -207,13 +242,13 @@ function version() {
     return ver
   }
 
-  const hash = getEnv(envGithub.GITHUB_SHA)
+  const hash = commitHash()
 
-  if (typeof hash === 'string' && hash.length >= 7) {
-    const ver = new Version, shortHash = hash.substring(0, 7).toLowerCase()
+  if (hash !== undefined) {
+    const ver = new Version
 
-    ver.version = shortHash
-    ver.semantic = `0.0.0-${shortHash}`
+    ver.version = hash.short
+    ver.semantic = `0.0.0-${hash.short}`
 
     return ver
   }
@@ -231,5 +266,6 @@ module.exports = {
   isOnTag,
   currentBranch,
   currentTag,
+  commitHash,
   version,
 }
