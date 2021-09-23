@@ -108,3 +108,5 @@ jobs:
       - run: if [[ '${{ steps.slug.outputs.version-minor }}' != 0 ]]; then exit 1; fi
       - run: if [[ '${{ steps.slug.outputs.version-patch }}' != 0 ]]; then exit 1; fi
       - run: if [[ '${{ steps.slug.outputs.slug }}' != 'foo-bar-123-baz-blah' ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.commit-hash }}' == '' ]]; then exit 1; fi
+      - run: if [[ '${{ steps.slug.outputs.commit-hash-short }}' == '' ]]; then exit 1; fi
