@@ -54,17 +54,92 @@ Semantic version value                 | `${{ steps.slug.outputs.version-semanti
 
 ## Examples
 
-On the branch:
+### On the branch:
 
 <p align="center">
   <img src="https://hsto.org/webt/y7/pl/ov/y7plovzqsmgjafdbwncrlysiaqm.png" alt="on the tag" />
 </p>
 
-On the tag:
+```yaml
+name: tests
+
+on:
+  push:
+    branches: [master, main]
+    paths-ignore: ['**.md']
+    tags-ignore: ['**']
+  pull_request:
+    paths-ignore: ['**.md']
+
+jobs:
+  build:
+    name: Build for ${{ matrix.os }} (${{ matrix.arch }})
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [linux, darwin]
+        arch: [amd64]
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with: {go-version: 1.17}
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - uses: gacts/github-slug@v1
+        id: slug
+
+      - name: Build application
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          CGO_ENABLED: 0
+          LDFLAGS: -s -w -X internal/pkg/version.version=${{ steps.slug.outputs.branch-name-slug }}@${{ steps.slug.outputs.commit-hash-short }}
+        run: go build -trimpath -ldflags "$LDFLAGS" -o ./app ./cmd/app/
+```
+
+### On the tag:
 
 <p align="center">
   <img src="https://hsto.org/webt/ah/qe/_e/ahqe_e03-tvp-whxpn0g6_q_vo8.png" alt="on the branch" />
 </p>
+
+```yaml
+name: release
+
+on:
+  release: # Docs: <https://help.github.com/en/articles/events-that-trigger-workflows#release-event-release>
+    types: [published]
+
+jobs:
+  docker-image:
+    name: Build the docker image
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - uses: gacts/github-slug@v1
+        id: slug
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 # Action page: <https://github.com/docker/login-action>
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PASSWORD }} # PAT token, generate new: <https://github.com/settings/tokens/new>
+
+      - uses: docker/build-push-action@v2 # Action page: <https://github.com/docker/build-push-action>
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ steps.slug.outputs.version }}
+            ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest
+```
 
 ## Releasing
 
