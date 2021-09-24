@@ -57,7 +57,7 @@ Semantic version value                 | `${{ steps.slug.outputs.version-semanti
 ### On the branch:
 
 <p align="center">
-  <img src="https://hsto.org/webt/y7/pl/ov/y7plovzqsmgjafdbwncrlysiaqm.png" alt="on the tag" />
+  <img src="https://hsto.org/webt/ah/qe/_e/ahqe_e03-tvp-whxpn0g6_q_vo8.png" alt="on the branch" />
 </p>
 
 ```yaml
@@ -103,7 +103,7 @@ jobs:
 ### On the tag:
 
 <p align="center">
-  <img src="https://hsto.org/webt/ah/qe/_e/ahqe_e03-tvp-whxpn0g6_q_vo8.png" alt="on the branch" />
+  <img src="https://hsto.org/webt/y7/pl/ov/y7plovzqsmgjafdbwncrlysiaqm.png" alt="on the tag" />
 </p>
 
 ```yaml
