@@ -23,8 +23,8 @@
   "homepage": "https://github.com/gacts/github-slug#readme",
   "dependencies": {
     "@actions/core": "^1.6.0",
-    "cli-table": "^0.3.6",
-    "slugify": "^1.6.1"
+    "cli-table": "^0.3.9",
+    "slugify": "^1.6.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
