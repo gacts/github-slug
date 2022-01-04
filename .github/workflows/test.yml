@@ -93,7 +93,7 @@ jobs:
           retention-days: 1
 
       - id: state
-        run: echo "::set-output name=changed::`git diff --diff-filter=ACMUXTR --name-only | grep dist/ && echo 'true' || echo 'false'`"
+        run: echo "::set-output name=changed::`git diff --diff-filter=ACMUXTR --name-only | grep dist/ > /dev/null && echo 'true' || echo 'false'`"
 
   commit-and-push-fresh-dist:
     name: Commit and push fresh distributive
