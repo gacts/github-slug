@@ -101,7 +101,13 @@ jobs:
     if: ${{ needs.dist-built.outputs.dist-changed == 'true' }}
     runs-on: ubuntu-20.04
     steps:
-      - run: echo "Hell yeah"
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+
+      - run: git status
 
   run-this-action:
     name: Run action
