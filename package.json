@@ -24,7 +24,7 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "cli-table": "^0.3.11",
-    "slugify": "^1.6.3"
+    "slugify": "^1.6.5"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
