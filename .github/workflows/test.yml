@@ -65,6 +65,8 @@ jobs:
   dist-built:
     name: Check distributive built state
     runs-on: ubuntu-20.04
+    outputs:
+      dist-changed: ${{ steps.state.outputs.changed }}
     env: {FORCE_COLOR: 'true'}
     steps:
       - uses: actions/checkout@v2
@@ -84,8 +86,26 @@ jobs:
 
       - run: yarn build
 
-      - name: You should build and commit a distributive directory if this step fails
-        run: git diff --diff-filter=ACMUXTR --name-only | grep dist/ && exit 1 || exit 0
+      - uses: actions/upload-artifact@v2
+        with: {name: dist, path: ./dist/, retention-days: 1}
+
+      - id: state
+        run: echo "::set-output name=changed::`git diff --diff-filter=ACMUXTR --name-only | grep dist/ > /dev/null && echo 'true' || echo 'false'`"
+
+  commit-and-push-fresh-dist:
+    name: Commit and push fresh distributive
+    needs: [dist-built]
+    if: ${{ needs.dist-built.outputs.dist-changed == 'true' }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with: {name: dist, path: ./dist/}
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automatic distributive rebuild
 
   run-this-action:
     name: Run action
