@@ -87,10 +87,7 @@ jobs:
       - run: yarn build
 
       - uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: ./dist/
-          retention-days: 1
+        with: {name: dist, path: ./dist/, retention-days: 1}
 
       - id: state
         run: echo "::set-output name=changed::`git diff --diff-filter=ACMUXTR --name-only | grep dist/ > /dev/null && echo 'true' || echo 'false'`"
@@ -104,8 +101,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v2
-        with:
-          name: dist
+        with: {name: dist, path: ./dist/}
 
       - run: git status
 
