@@ -4,6 +4,12 @@ All notable changes to this package will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.2.0
+
+### Changed
+
+- Update to node 16 (Node 12 has an end of life on April 30, 2022)
+
 ## v1.1.1
 
 ### Changed
