@@ -33,22 +33,24 @@ Add this in your workflow:
 
 And in subsequent steps you will be able to use the following variables:
 
-Description                            | How to use in your workflow                  | Examples for `branch`/`tag` workflows
--------------------------------------- | -------------------------------------------- | -------------------------------------
-A slugged version of "to-slug" input   | `${{ steps.slug.outputs.slug }}`             | `hello-username-how-are-you`
-The workflow was triggered on a branch | `${{ steps.slug.outputs.is-branch }}`        | `true`/`false`
-The workflow was triggered on a tag    | `${{ steps.slug.outputs.is-tag }}`           | `false`/`true`
-Current branch name                    | `${{ steps.slug.outputs.branch-name }}`      | `fix/Foo_bar`/`<empty-value>`
-A slugged version of `branch-name`     | `${{ steps.slug.outputs.branch-name-slug }}` | `fix-foo-bar`/`<empty-value>`
-Current tag name                       | `${{ steps.slug.outputs.tag-name }}`         | `<empty-value>`/`v1.2-rc1_Lorem`
-A slugged version of `tag-name`        | `${{ steps.slug.outputs.tag-name-slug }}`    | `<empty-value>`/`v1-2-rc1-lorem`
-The commit SHA hash that triggered the workflow | `${{ steps.slug.outputs.commit-hash }}`    | `ffac537e6cbbf934b08745a378932722df287a53`
-Short _(7 first characters)_ commit SHA hash | `${{ steps.slug.outputs.commit-hash-short }}` | `ffac537`
-Cleared and slugged version value (prefix `v/ver/version[._-]` will be rejected) | `${{ steps.slug.outputs.version }}` | `fix-foo-bar`/`1.2-rc1-lorem`
-Major version                          | `${{ steps.slug.outputs.version-major }}`    | `0`/`1`
-Minor version                          | `${{ steps.slug.outputs.version-minor }}`    | `0`/`2`
-Patch version                          | `${{ steps.slug.outputs.version-patch }}`    | `0`/`0`
-Semantic version value                 | `${{ steps.slug.outputs.version-semantic }}` | `0.0.0-fix-foo-bar`/`1.2.0-rc1-lorem`
+| Description                                     | How to use in your workflow                   | Examples for `branch`/`tag` workflows      |
+|-------------------------------------------------|-----------------------------------------------|--------------------------------------------|
+| A slugged version of "to-slug" input            | `${{ steps.slug.outputs.slug }}`              | `hello-username-how-are-you`               |
+| The workflow was triggered on a branch          | `${{ steps.slug.outputs.is-branch }}`         | `true`/`false`                             |
+| The workflow was triggered on a tag             | `${{ steps.slug.outputs.is-tag }}`            | `false`/`true`                             |
+| Current branch name                             | `${{ steps.slug.outputs.branch-name }}`       | `fix/Foo_bar`/`<empty-value>`              |
+| A slugged version of `branch-name`              | `${{ steps.slug.outputs.branch-name-slug }}`  | `fix-foo-bar`/`<empty-value>`              |
+| Current tag name                                | `${{ steps.slug.outputs.tag-name }}`          | `<empty-value>`/`v1.2-rc1_Lorem`           |
+| A slugged version of `tag-name`                 | `${{ steps.slug.outputs.tag-name-slug }}`     | `<empty-value>`/`v1-2-rc1-lorem`           |
+| The commit SHA hash that triggered the workflow | `${{ steps.slug.outputs.commit-hash }}`       | `ffac537e6cbbf934b08745a378932722df287a53` |
+| Short _(7 first characters)_ commit SHA hash    | `${{ steps.slug.outputs.commit-hash-short }}` | `ffac537`                                  |
+| Cleared and slugged version value <sup>*</sup>  | `${{ steps.slug.outputs.version }}`           | `fix-foo-bar`/`1.2-rc1-lorem`              |
+| Major version                                   | `${{ steps.slug.outputs.version-major }}`     | `0`/`1`                                    |
+| Minor version                                   | `${{ steps.slug.outputs.version-minor }}`     | `0`/`2`                                    |
+| Patch version                                   | `${{ steps.slug.outputs.version-patch }}`     | `0`/`0`                                    |
+| Semantic version value                          | `${{ steps.slug.outputs.version-semantic }}`  | `0.0.0-fix-foo-bar`/`1.2.0-rc1-lorem`      |
+
+> <sup>*</sup> Prefix `v/ver/version[._-]` will be rejected
 
 > Tip: Use [Dependabot][use_dependabot] to maintain your `gacts/github-slug` version updated in your GitHub workflows.
 
@@ -82,11 +84,11 @@ jobs:
         arch: [amd64]
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v2
-        with: {go-version: 1.17}
+        uses: actions/setup-go@v3
+        with: {go-version: 1.18}
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: gacts/github-slug@v1
         id: slug
@@ -119,7 +121,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: gacts/github-slug@v1
         id: slug
