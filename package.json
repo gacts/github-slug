@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/gacts/github-slug#readme",
   "dependencies": {
-    "@actions/core": "^1.6.0",
+    "@actions/core": "^1.7.0",
     "cli-table": "^0.3.11",
     "slugify": "^1.6.5"
   },
