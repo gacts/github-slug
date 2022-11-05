@@ -73,7 +73,7 @@ function currentBranch() {
 
   const eventName = getEnv(envGithub.GITHUB_EVENT_NAME)
 
-  console.log(github.context.payload)
+  console.log('!!!!!!!!!!!!!!!!!!!!!!', github.context.payload)
 
   if (eventName !== undefined) {
     switch (eventName.toLowerCase()) {
