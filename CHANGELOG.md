@@ -4,6 +4,14 @@ All notable changes to this package will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.2.2
+
+### Fixed
+
+- Branch name detection on `delete` events [#49]
+
+[#49]:https://github.com/gacts/github-slug/issues/49
+
 ## v1.2.1
 
 ### Changed
