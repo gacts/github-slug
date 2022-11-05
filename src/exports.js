@@ -2,6 +2,7 @@ const {getEnv} = require('./env/utils')
 const envGithub = require('./env/names')
 const {slug} = require('./formatters')
 const {VersionInfo} = require('./version')
+const github = require('@actions/github')
 
 // references separator
 const separator = '/'
@@ -68,6 +69,15 @@ function currentBranch() {
    */
   const toResult = (branchName) => {
     return new Branch(branchName.trim(), slug(branchName))
+  }
+
+  const eventName = getEnv(envGithub.GITHUB_EVENT_NAME)
+
+  if (eventName !== undefined) {
+    switch (eventName.toLowerCase()) {
+      case 'delete': // https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#delete
+        console.log(github.context.payload)
+    }
   }
 
   const githubHeadRef = getEnv(envGithub.GITHUB_HEAD_REF)
