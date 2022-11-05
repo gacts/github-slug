@@ -73,6 +73,8 @@ function currentBranch() {
 
   const eventName = getEnv(envGithub.GITHUB_EVENT_NAME)
 
+  console.log(github.context.payload)
+
   if (eventName !== undefined) {
     switch (eventName.toLowerCase()) {
       case 'delete': // https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#delete
