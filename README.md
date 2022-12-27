@@ -165,7 +165,7 @@ If you will find any action errors - please, [make an issue][link_create_issue] 
 
 This is open-sourced software licensed under the [MIT License][link_license].
 
-[badge_build]:https://img.shields.io/github/workflow/status/gacts/github-slug/tests?maxAge=30
+[badge_build]:https://img.shields.io/github/actions/workflow/status/gacts/github-slug/test.yml?branch=master&maxAge=30
 [badge_release_version]:https://img.shields.io/github/release/gacts/github-slug.svg?maxAge=30
 [badge_license]:https://img.shields.io/github/license/gacts/github-slug.svg?longCache=true
 [badge_release_date]:https://img.shields.io/github/release-date/gacts/github-slug.svg?maxAge=180
