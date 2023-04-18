@@ -1,0 +1,13 @@
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  run-this-action:
+    name: Run action
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Run this action
+        uses: ./
+        id: slug
