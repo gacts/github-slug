@@ -1,3 +1,5 @@
+name: TEST_ISSUE
+
 on:
   pull_request:
     types:
