@@ -30,7 +30,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm lint
+      - run: npm run lint
 
   tests:
     name: 🧪 Run unit tests
@@ -44,7 +44,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm test --verbose
+      - run: npm run test --verbose
 
   dist-built:
     name: 🧪 Check distributive built state
@@ -60,7 +60,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm build
+      - run: npm run build
 
       - uses: actions/upload-artifact@v3
         with: {name: dist, path: ./dist/, retention-days: 1}
