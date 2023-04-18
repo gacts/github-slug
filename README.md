@@ -76,7 +76,7 @@ on:
 jobs:
   build:
     name: Build for ${{ matrix.os }} (${{ matrix.arch }})
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -118,7 +118,7 @@ on:
 jobs:
   docker-image:
     name: Build the docker image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -148,7 +148,7 @@ jobs:
 New versions releasing scenario:
 
 - Make required changes in the [changelog](CHANGELOG.md) file
-- Build the action distribution (`make build` or `yarn build`)
+- Build the action distribution (`make build` or `npm build`)
 - Commit and push changes (including `dist` directory changes - this is important) into the `master` branch
 - Publish new release using repo releases page (git tag should follow `vX.Y.Z` format)
 

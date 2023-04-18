@@ -6,8 +6,8 @@ on:
 
 jobs:
   update-git-tag: # Reason: <https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations>
-    name: Update latest major git tag
-    runs-on: ubuntu-20.04
+    name: 🚀 Update latest major git tag
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
