@@ -15,6 +15,8 @@ const separator = '/'
 function isOnBranch() {
   const githubRef = getEnv(envGithub.GITHUB_REF)
 
+  console.log(githubRef)
+
   if (githubRef !== undefined) {
     const parts = githubRef.split(separator)
 
