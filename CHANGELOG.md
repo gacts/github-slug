@@ -4,6 +4,14 @@ All notable changes to this package will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.2.5
+
+### Fixed
+
+- Is on branch detection on `closed` events [#58]
+
+[#58]:https://github.com/gacts/github-slug/issues/58
+
 ## v1.2.4
 
 ### Changed

@@ -32,6 +32,9 @@ module.exports = Object.freeze({
   // tag is available for the event type, the variable will not exist
   GITHUB_REF: 'GITHUB_REF',
 
+  // The type of ref that triggered the workflow run. Valid values are `branch` or `tag`
+  GITHUB_REF_TYPE: 'GITHUB_REF_TYPE',
+
   // Only set for pull request events. The name of the head branch
   GITHUB_HEAD_REF: 'GITHUB_HEAD_REF',
 
