@@ -28,6 +28,22 @@ describe('isOnBranch', () => {
       want: true,
     },
     {
+      name: 'on the branch (detected by GITHUB_REF_TYPE)',
+      giveEnv: [
+        {name: envGithub.GITHUB_REF, value: 'master'},
+        {name: envGithub.GITHUB_REF_TYPE, value: 'branch'},
+      ],
+      want: true,
+    },
+    {
+      name: 'not on the branch',
+      giveEnv: [
+        {name: envGithub.GITHUB_REF, value: 'bar'},
+        {name: envGithub.GITHUB_REF_TYPE, value: 'foo'},
+      ],
+      want: false,
+    },
+    {
       name: 'on the tag',
       giveEnv: [{name: envGithub.GITHUB_REF, value: 'refs/tags/foo-tag'}],
       want: false,
@@ -69,6 +85,22 @@ describe('isOnTag', () => {
     {
       name: 'on the branch',
       giveEnv: [{name: envGithub.GITHUB_REF, value: 'refs/heads/foo/branch'}],
+      want: false,
+    },
+    {
+      name: 'on the tag (detected by GITHUB_REF_TYPE)',
+      giveEnv: [
+        {name: envGithub.GITHUB_REF, value: 'foo'},
+        {name: envGithub.GITHUB_REF_TYPE, value: 'tag'},
+      ],
+      want: true,
+    },
+    {
+      name: 'not on the tag',
+      giveEnv: [
+        {name: envGithub.GITHUB_REF, value: 'bar'},
+        {name: envGithub.GITHUB_REF_TYPE, value: 'foo'},
+      ],
       want: false,
     },
     {
