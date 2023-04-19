@@ -13,6 +13,14 @@ const separator = '/'
  * @return {boolean}
  */
 function isOnBranch() {
+  const githubRefType = getEnv(envGithub.GITHUB_REF_TYPE)
+
+  if (githubRefType !== undefined) {
+    if (githubRefType.trim().toLowerCase() === 'branch') {
+      return true
+    }
+  }
+
   const githubRef = getEnv(envGithub.GITHUB_REF)
 
   if (githubRef !== undefined) {
@@ -30,6 +38,14 @@ function isOnBranch() {
  * @return {boolean}
  */
 function isOnTag() {
+  const githubRefType = getEnv(envGithub.GITHUB_REF_TYPE)
+
+  if (githubRefType !== undefined) {
+    if (githubRefType.trim().toLowerCase() === 'tag') {
+      return true
+    }
+  }
+
   const githubRef = getEnv(envGithub.GITHUB_REF)
 
   if (githubRef !== undefined) {
