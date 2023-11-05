@@ -56,7 +56,7 @@ outputs:
       be rejected. Available for builds on branches and tags (always non-empty)
 
 runs:
-  using: node16
+  using: node20
   main: dist/index.js
 
 branding:
