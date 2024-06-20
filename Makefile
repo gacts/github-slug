@@ -23,6 +23,10 @@ shell: ## Start shell into a container with node
 lint: ## Run lint
 	docker run $(RUN_ARGS) npm run lint
 
+.PHONY: test
+test: ## Run tests
+	docker run $(RUN_ARGS) npm run test
+
 .PHONY: build
 build: install ## Build the extension and pack it into a zip file
 	docker run $(RUN_ARGS) npm run build

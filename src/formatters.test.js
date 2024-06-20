@@ -1,3 +1,4 @@
+const {describe, test, expect} = require('@jest/globals')
 const {slug} = require('./formatters')
 
 describe('slug', () => {

@@ -21,7 +21,7 @@ class VersionInfo {
    * @param {string} raw RAW string with version information
    */
   constructor(raw) {
-    const clear = VersionInfo.clearVersionString(VersionInfo.rejectVersionPrefix(raw.trimLeft()))
+    const clear = VersionInfo.clearVersionString(VersionInfo.rejectVersionPrefix(raw.trimStart()))
     const parts = VersionInfo.splitVersionStringIntoParts(clear)
 
     if (parts.length > 0) {

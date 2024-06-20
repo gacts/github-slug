@@ -1,6 +1,6 @@
 const {getEnv} = require('./env/utils')
 const envGithub = require('./env/names')
-let Table = require('cli-table') // docs: <https://github.com/Automattic/cli-table>
+const Table = require('cli-table') // docs: <https://github.com/Automattic/cli-table>
 
 class ActionID {
   /** @var {string|undefined} */

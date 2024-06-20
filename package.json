@@ -3,7 +3,7 @@
   "description": "GitHub Action to expose slug values of branch/tag/version inside your GitHub workflow",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint --config package.json ./src/**/*.js",
+    "lint": "eslint --config package.json './src/**/*.js'",
     "build": "ncc build src/index.js -o dist --minify --no-cache",
     "test": "jest"
   },
@@ -28,28 +28,24 @@
     "slugify": "^1.6.6"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@vercel/ncc": "^0.38.1",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.57.0",
     "jest": "^29.7.0"
   },
   "eslintConfig": {
     "env": {
-      "commonjs": true,
       "es6": true,
-      "jest": true,
       "node": true
     },
     "extends": "eslint:recommended",
-    "globals": {
-      "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
-    },
-    "parser": "babel-eslint",
     "parserOptions": {
-      "ecmaVersion": 2018
+      "sourceType": "module",
+      "ecmaVersion": 2022
     },
-    "rules": {
-    }
+    "rules": {}
+  },
+  "engines": {
+    "node": "20"
   }
 }

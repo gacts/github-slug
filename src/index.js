@@ -66,8 +66,8 @@ async function run() {
 }
 
 // run the action
-try {
-  run()
-} catch (error) {
+(async () => {
+  await run()
+})().catch(error => {
   core.setFailed(error.message)
-}
+})

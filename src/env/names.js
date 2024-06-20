@@ -1,34 +1,34 @@
 /**
- * Inputs environments variables keys from Github actions job
+ * Inputs environments variables keys from GitHub actions job
  * @see https://git.io/Jzcq8
  */
 
 module.exports = Object.freeze({
-  // The name of the workflow. Eg.: `tests`
+  // The name of the workflow. E.g.: `tests`
   GITHUB_WORKFLOW: 'GITHUB_WORKFLOW',
 
-  // The [job_id](https://git.io/JzcLJ) of the current job. Eg.: `Run tests`
+  // The [job_id](https://git.io/JzcLJ) of the current job. E.g.: `Run tests`
   GITHUB_JOB: 'GITHUB_JOB',
 
   // The unique identifier (id) of the action
   GITHUB_ACTION: 'GITHUB_ACTION',
 
-  // The name of the person or app that initiated the workflow. Eg.: `octocat`
+  // The name of the person or app that initiated the workflow. E.g.: `octocat`
   GITHUB_ACTOR: 'GITHUB_ACTOR',
 
-  // The owner and repository name. Eg.: `octocat/Hello-World`
+  // The owner and repository name. E.g.: `octocat/Hello-World`
   GITHUB_REPOSITORY: 'GITHUB_REPOSITORY',
 
-  // The name of the webhook event that triggered the workflow. Eg.: `push`
+  // The name of the webhook event that triggered the workflow. E.g.: `push`
   GITHUB_EVENT_NAME: 'GITHUB_EVENT_NAME',
 
-  // The GitHub workspace directory path, initially empty. Eg.: `/home/runner/work/my-repo-name/my-repo-name`
+  // The GitHub workspace directory path, initially empty. E.g.: `/home/runner/work/my-repo-name/my-repo-name`
   GITHUB_WORKSPACE: 'GITHUB_WORKSPACE',
 
-  // The commit SHA that triggered the workflow. Eg.: `ffac537e6cbbf934b08745a378932722df287a53`
+  // The commit SHA that triggered the workflow. E.g.: `ffac537e6cbbf934b08745a378932722df287a53`
   GITHUB_SHA: 'GITHUB_SHA',
 
-  // The branch or tag ref that triggered the workflow. Eg.: `refs/heads/feature-branch-1`. If neither a branch or
+  // The branch or tag ref that triggered the workflow. E.g.: `refs/heads/feature-branch-1`. If neither a branch nor
   // tag is available for the event type, the variable will not exist
   GITHUB_REF: 'GITHUB_REF',
 
@@ -46,6 +46,6 @@ module.exports = Object.freeze({
 
   // The path to a temporary directory on the runner. This directory is emptied at the beginning and end of each job.
   // Note that files will not be removed if the runner's user account does not have permission to delete
-  // them. Eg.: `/tmp`
+  // them. E.g.: `/tmp`
   RUNNER_TEMP: 'RUNNER_TEMP',
 })
