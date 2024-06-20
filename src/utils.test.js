@@ -1,3 +1,4 @@
+const {beforeEach, describe, test, expect} = require('@jest/globals')
 const envGithub = require('./env/names')
 const {ActionID} = require('./utils')
 
