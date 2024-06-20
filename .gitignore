@@ -13,7 +13,7 @@ yarn.lock
 
 # Logs
 logs
-*.log*
+*.log
 
 # Temp dirs & trash
 /temp
