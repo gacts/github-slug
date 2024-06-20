@@ -65,7 +65,7 @@ jobs:
         with: {commit_message: Automatic distributive rebuild}
 
   run-this-action:
-    name: 🚀 Run action
+    name: Run this action
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
