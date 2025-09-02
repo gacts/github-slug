@@ -6,7 +6,7 @@ export default async () => {
     clearMocks: true,
     moduleFileExtensions: ['js'],
     testEnvironment: 'node',
-    testMatch: ['/src/**/*.test.js'],
+    testMatch: ['**/*.test.js'],
     testPathIgnorePatterns: ['/dist/', '/node_modules/'],
     verbose: true,
   };

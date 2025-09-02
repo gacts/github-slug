@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint './src/**/*.js'",
-    "build": "ncc build src/index.js -o dist --minify --no-cache --target es2020",
+    "build": "ncc build src/index.js -o dist --minify --no-cache",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
   },
   "repository": {
