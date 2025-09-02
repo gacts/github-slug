@@ -1,10 +1,12 @@
+import process from 'node:process'
+
 /**
  * Returns the environment variable. Empty variables are not available and will be interpreted as nonexistent.
  *
  * @param {string} name
  * @return {string|undefined}
  */
-function getEnv(name) {
+export function getEnv(name) {
   if (name in process.env) {
     const value = process.env[name]
 
@@ -14,8 +16,4 @@ function getEnv(name) {
   }
 
   return undefined
-}
-
-module.exports = {
-  getEnv
 }

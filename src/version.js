@@ -1,26 +1,27 @@
-const {slug} = require('./formatters')
+import {slug} from './formatters'
 
 /**
  * Raw version string parser.
+ *
+ * @property {number} major
+ * @property {number} minor
+ * @property {number} patch
+ * @property {string} tail
+ * @property {string} formatted
+ * @property {string} semantic
  */
-class VersionInfo {
-  /** @type {number} */
-  major = 0
-  /** @type {number} */
-  minor = 0
-  /** @type {number} */
-  patch = 0
-  /** @type {string} */
-  tail = ''
-  /** @type {string} */
-  formatted = ''
-  /** @type {string} */
-  semantic = ''
-
+export class VersionInfo {
   /**
    * @param {string} raw RAW string with version information
    */
   constructor(raw) {
+    this.major = 0
+    this.minor = 0
+    this.patch = 0
+    this.tail = ''
+    this.formatted = ''
+    this.semantic = ''
+
     const clear = VersionInfo.clearVersionString(VersionInfo.rejectVersionPrefix(raw.trimStart()))
     const parts = VersionInfo.splitVersionStringIntoParts(clear)
 
@@ -118,8 +119,4 @@ class VersionInfo {
       return typeof s === 'string' && s.length > 0
     })
   }
-}
-
-module.exports = {
-  VersionInfo,
 }

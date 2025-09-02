@@ -1,6 +1,6 @@
-const {beforeEach, describe, test, expect} = require('@jest/globals')
-const envGithub = require('./env/names')
-const {isOnBranch, isOnTag, currentBranch, currentTag, commitHash, version} = require('./exports')
+import {beforeEach, describe, expect, test} from '@jest/globals'
+import envGithub from './env/names'
+import {commitHash, currentBranch, currentTag, isOnBranch, isOnTag, version} from './exports'
 
 beforeEach(() => {
   Object.keys(envGithub).forEach(key => {

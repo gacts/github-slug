@@ -1,5 +1,5 @@
-const {describe, test, expect} = require('@jest/globals')
-const {VersionInfo} = require('./version')
+import {describe, test, expect} from '@jest/globals'
+import {VersionInfo} from './version'
 
 describe('VersionInfo::rejectVersionPrefix', () => {
   [
