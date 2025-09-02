@@ -1,5 +1,5 @@
-const {describe, test, expect} = require('@jest/globals')
-const {slug} = require('./formatters')
+import {describe, test, expect} from '@jest/globals'
+import {slug} from './formatters'
 
 describe('slug', () => {
   [

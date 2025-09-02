@@ -1,8 +1,8 @@
-const {getEnv} = require('./env/utils')
-const envGithub = require('./env/names')
-const {slug} = require('./formatters')
-const {VersionInfo} = require('./version')
-const github = require('@actions/github')
+import {getEnv} from './env/utils'
+import envGithub from './env/names'
+import {slug} from './formatters'
+import {VersionInfo} from './version'
+import github from '@actions/github'
 
 // references separator
 const separator = '/'
@@ -12,7 +12,7 @@ const separator = '/'
  *
  * @return {boolean}
  */
-function isOnBranch() {
+export function isOnBranch() {
   const githubRefType = getEnv(envGithub.GITHUB_REF_TYPE)
 
   if (githubRefType !== undefined) {
@@ -37,7 +37,7 @@ function isOnBranch() {
  *
  * @return {boolean}
  */
-function isOnTag() {
+export function isOnTag() {
   const githubRefType = getEnv(envGithub.GITHUB_REF_TYPE)
 
   if (githubRefType !== undefined) {
@@ -57,12 +57,11 @@ function isOnTag() {
   return false
 }
 
+/**
+ * @property {string} name
+ * @property {string} slug
+ */
 class Branch {
-  /** @type {string} */
-  name = ''
-  /** @type {string} */
-  slug = ''
-
   /**
    * @param {string} name
    * @param {string} slug
@@ -78,7 +77,7 @@ class Branch {
  *
  * @return {Branch|undefined}
  */
-function currentBranch() {
+export function currentBranch() {
   /**
    * @param {string} branchName
    * @return {Branch}
@@ -130,12 +129,11 @@ function currentBranch() {
   return undefined
 }
 
+/**
+ * @property {string} name
+ * @property {string} slug
+ */
 class Tag {
-  /** @type {string} */
-  name = ''
-  /** @type {string} */
-  slug = ''
-
   /**
    * @param {string} name
    * @param {string} slug
@@ -151,7 +149,7 @@ class Tag {
  *
  * @return {Tag|undefined}
  */
-function currentTag() {
+export function currentTag() {
   const githubRef = getEnv(envGithub.GITHUB_REF)
 
   if (githubRef !== undefined) {
@@ -173,12 +171,11 @@ function currentTag() {
   return undefined
 }
 
+/**
+ * @property {string} long
+ * @property {string} short
+ */
 class CommitHash {
-  /** @type {string} */
-  long = ''
-  /** @type {string} */
-  short = ''
-
   /**
    * @param {string} long
    * @param {string} short
@@ -194,7 +191,7 @@ class CommitHash {
  *
  * @return {CommitHash|undefined}
  */
-function commitHash() {
+export function commitHash() {
   const hash = getEnv(envGithub.GITHUB_SHA)
 
   if (typeof hash === 'string' && hash.length >= 7) {
@@ -208,17 +205,21 @@ function commitHash() {
   return undefined
 }
 
+/**
+ * @property {string} version
+ * @property {number} major
+ * @property {number} minor
+ * @property {number} patch
+ * @property {string} semantic
+ */
 class Version {
-  /** @type {string} */
-  version = ''
-  /** @type {number} */
-  major = 0
-  /** @type {number} */
-  minor = 0
-  /** @type {number} */
-  patch = 0
-  /** @type {string} */
-  semantic = ''
+  constructor() {
+    this.version = ''
+    this.major = 0
+    this.minor = 0
+    this.patch = 0
+    this.semantic = ''
+  }
 }
 
 /**
@@ -226,7 +227,7 @@ class Version {
  *
  * @return {Version}
  */
-function version() {
+export function version() {
   const isTag = isOnTag(), tag = currentTag()
 
   if (isTag && tag !== undefined) {
@@ -292,13 +293,4 @@ function version() {
   fallbackVer.semantic = `0.0.0-${sign}`
 
   return fallbackVer
-}
-
-module.exports = {
-  isOnBranch,
-  isOnTag,
-  currentBranch,
-  currentTag,
-  commitHash,
-  version,
 }
