@@ -2,20 +2,13 @@
 /.vscode
 /.idea
 
-# Vendor
+# Etc
+/build
 /node_modules
-
-# Environment files
 *.env
-
-# yarn lock file (use npm only)
 yarn.lock
-
-# Logs
 logs
 *.log
-
-# Temp dirs & trash
 /temp
 /tmp
 .DS_Store

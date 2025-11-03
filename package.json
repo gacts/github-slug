@@ -3,15 +3,15 @@
   "description": "GitHub Action to expose slug values of branch/tag/version inside your GitHub workflow",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint './src/**/*.js'",
-    "build": "ncc build src/index.js -o dist --minify --no-cache",
-    "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
+    "__lint": "eslint './src/**/*.js'",
+    "fmt": "prettier --write './src/**/*.ts'",
+    "build": "tsc && ncc build ./build/main.js -o dist --minify --no-cache",
+    "__test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gacts/github-slug.git"
   },
-  "type": "module",
   "keywords": [
     "github",
     "actions",
@@ -32,10 +32,13 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.34.0",
     "@jest/globals": "^30.1.2",
+    "@types/cli-table": "^0.3.4",
     "@vercel/ncc": "^0.38.3",
     "eslint": "^9.34.0",
     "globals": "^16.3.0",
-    "jest": "^30.1.2"
+    "jest": "^30.1.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
   },
   "volta": {
     "node": "24"

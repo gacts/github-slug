@@ -1,13 +1,11 @@
 // See: https://jestjs.io/docs/configuration
 
-/** @returns {Promise<import('jest').Config>} */
-export default async () => {
-  return {
-    clearMocks: true,
-    moduleFileExtensions: ['js'],
-    testEnvironment: 'node',
-    testMatch: ['**/*.test.js'],
-    testPathIgnorePatterns: ['/dist/', '/node_modules/'],
-    verbose: true,
-  };
+/** @type {import('jest').Config} */
+export default {
+  clearMocks: true,
+  moduleFileExtensions: ['js', 'mjs'],
+  testEnvironment: 'node',
+  testMatch: ['**/*.test.js'],
+  testPathIgnorePatterns: ['/dist/', '/node_modules/'],
+  verbose: true,
 };
