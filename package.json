@@ -45,7 +45,10 @@
     },
     "rules": {}
   },
+  "volta": {
+    "node": "24"
+  },
   "engines": {
-    "node": "20"
+    "node": ">=24"
   }
 }
