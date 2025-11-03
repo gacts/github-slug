@@ -1,9 +1,9 @@
-const {slug} = require('./formatters')
+import {slug} from './formatters'
 
 /**
  * Raw version string parser.
  */
-class VersionInfo {
+export class VersionInfo {
   /** @type {number} */
   major = 0
   /** @type {number} */
@@ -118,8 +118,4 @@ class VersionInfo {
       return typeof s === 'string' && s.length > 0
     })
   }
-}
-
-module.exports = {
-  VersionInfo,
 }

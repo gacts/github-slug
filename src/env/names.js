@@ -3,7 +3,7 @@
  * @see https://git.io/Jzcq8
  */
 
-module.exports = Object.freeze({
+export default Object.freeze({
   // The name of the workflow. E.g.: `tests`
   GITHUB_WORKFLOW: 'GITHUB_WORKFLOW',
 

@@ -1,8 +1,8 @@
-const {getEnv} = require('./env/utils')
-const envGithub = require('./env/names')
-const {slug} = require('./formatters')
-const {VersionInfo} = require('./version')
-const github = require('@actions/github')
+import {getEnv} from './env/utils'
+import envGithub from './env/names'
+import {slug} from './formatters'
+import {VersionInfo} from './version'
+import github from '@actions/github'
 
 // references separator
 const separator = '/'
@@ -12,7 +12,7 @@ const separator = '/'
  *
  * @return {boolean}
  */
-function isOnBranch() {
+export const isOnBranch = () => {
   const githubRefType = getEnv(envGithub.GITHUB_REF_TYPE)
 
   if (githubRefType !== undefined) {
@@ -37,7 +37,7 @@ function isOnBranch() {
  *
  * @return {boolean}
  */
-function isOnTag() {
+export const isOnTag = () => {
   const githubRefType = getEnv(envGithub.GITHUB_REF_TYPE)
 
   if (githubRefType !== undefined) {
@@ -78,7 +78,7 @@ class Branch {
  *
  * @return {Branch|undefined}
  */
-function currentBranch() {
+export const currentBranch = () => {
   /**
    * @param {string} branchName
    * @return {Branch}
@@ -151,7 +151,7 @@ class Tag {
  *
  * @return {Tag|undefined}
  */
-function currentTag() {
+export const currentTag = () => {
   const githubRef = getEnv(envGithub.GITHUB_REF)
 
   if (githubRef !== undefined) {
@@ -194,7 +194,7 @@ class CommitHash {
  *
  * @return {CommitHash|undefined}
  */
-function commitHash() {
+export const commitHash = () => {
   const hash = getEnv(envGithub.GITHUB_SHA)
 
   if (typeof hash === 'string' && hash.length >= 7) {
@@ -226,7 +226,7 @@ class Version {
  *
  * @return {Version}
  */
-function version() {
+export const version = () => {
   const isTag = isOnTag(), tag = currentTag()
 
   if (isTag && tag !== undefined) {
@@ -292,13 +292,4 @@ function version() {
   fallbackVer.semantic = `0.0.0-${sign}`
 
   return fallbackVer
-}
-
-module.exports = {
-  isOnBranch,
-  isOnTag,
-  currentBranch,
-  currentTag,
-  commitHash,
-  version,
 }

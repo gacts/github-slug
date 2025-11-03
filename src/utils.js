@@ -1,8 +1,8 @@
-const {getEnv} = require('./env/utils')
-const envGithub = require('./env/names')
-const Table = require('cli-table') // docs: <https://github.com/Automattic/cli-table>
+import {getEnv} from './env/utils'
+import envGithub from './env/names'
+import Table from 'cli-table' // docs: <https://github.com/Automattic/cli-table>
 
-class ActionID {
+export class ActionID {
   /** @var {string|undefined} */
   currentID
 
@@ -19,7 +19,7 @@ class ActionID {
   }
 }
 
-class Output {
+export class Output {
   /** @type {string} */
   name = ''
   /** @type {any} */
@@ -42,7 +42,7 @@ class Output {
 /**
  * Simple wrapper around CLI table implementation.
  */
-class CLITable {
+export class CLITable {
   /** @var {{}} */
   t
 
@@ -67,10 +67,4 @@ class CLITable {
   toString() {
     return this.t.toString()
   }
-}
-
-module.exports = {
-  ActionID,
-  Output,
-  CLITable,
 }

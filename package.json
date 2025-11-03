@@ -3,9 +3,9 @@
   "description": "GitHub Action to expose slug values of branch/tag/version inside your GitHub workflow",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint --config package.json './src/**/*.js'",
+    "lint": "eslint './src/**/*.js'",
     "build": "ncc build src/index.js -o dist --minify --no-cache",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "url": "https://github.com/gacts/github-slug/issues"
   },
   "homepage": "https://github.com/gacts/github-slug#readme",
+  "type": "module",
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
@@ -28,24 +29,18 @@
     "slugify": "^1.6.6"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.39.0",
     "@jest/globals": "^30.2.0",
     "@vercel/ncc": "^0.38.4",
-    "eslint": "^8.57.0",
+    "eslint": "^9.39.0",
+    "globals": "^16.5.0",
     "jest": "^30.2.0"
   },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 2022
-    },
-    "rules": {}
+  "volta": {
+    "node": "24"
   },
   "engines": {
-    "node": "20"
+    "node": ">=24"
   }
 }

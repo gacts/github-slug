@@ -1,7 +1,7 @@
-const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
-const {isOnBranch, isOnTag, currentTag, currentBranch, commitHash, version} = require('./exports')
-const {ActionID, Output, CLITable} = require('./utils')
-const {slug} = require('./formatters')
+import core from '@actions/core' // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
+import {isOnBranch, isOnTag, currentTag, currentBranch, commitHash, version} from './exports'
+import {ActionID, Output, CLITable} from './utils'
+import {slug} from './formatters'
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {

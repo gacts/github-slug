@@ -4,7 +4,7 @@
  * @param {string} name
  * @return {string|undefined}
  */
-function getEnv(name) {
+export const getEnv = (name) => {
   if (name in process.env) {
     const value = process.env[name]
 
@@ -14,8 +14,4 @@ function getEnv(name) {
   }
 
   return undefined
-}
-
-module.exports = {
-  getEnv
 }
