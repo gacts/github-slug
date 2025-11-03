@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint './src/**/*.js'",
     "build": "ncc build src/index.js -o dist --minify --no-cache",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
