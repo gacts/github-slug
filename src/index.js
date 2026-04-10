@@ -1,7 +1,7 @@
-const core = require('@actions/core') // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
-const {isOnBranch, isOnTag, currentTag, currentBranch, commitHash, version} = require('./exports')
-const {ActionID, Output, CLITable} = require('./utils')
-const {slug} = require('./formatters')
+import {getInput, setOutput, startGroup, endGroup, info, setFailed} from '@actions/core' // docs: <https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions>
+import {isOnBranch, isOnTag, currentTag, currentBranch, commitHash, version} from './exports.js'
+import {ActionID, Output, CLITable} from './utils.js'
+import {slug} from './formatters.js'
 
 // main action entrypoint (docs: <https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action>)
 async function run() {
@@ -42,7 +42,7 @@ async function run() {
   outputs.push(new Output('version-patch', ver.patch, 'Patch version'))
   outputs.push(new Output('version-semantic', ver.semantic, 'Semantic version value'))
 
-  const toSlug = core.getInput('to-slug').trim()
+  const toSlug = getInput('to-slug').trim()
 
   if (toSlug.length > 0) {
     outputs.push(new Output('slug', slug(toSlug), 'A slugged version of "to-slug" input'))
@@ -50,9 +50,9 @@ async function run() {
 
   const t = new CLITable(['Name', 'Description', 'How to use in your workflow', 'Value']), act = new ActionID
 
-  core.startGroup('Setup action')
+  startGroup('Setup action')
   outputs.forEach((el) => {
-    core.setOutput(el.name, el.value)
+    setOutput(el.name, el.value)
     t.push([
       el.name,
       el.description,
@@ -60,14 +60,14 @@ async function run() {
       el.value,
     ])
   })
-  core.endGroup()
+  endGroup()
 
-  core.info(t.toString())
+  info(t.toString())
 }
 
 // run the action
 (async () => {
   await run()
 })().catch(error => {
-  core.setFailed(error.message)
+  setFailed(error.message)
 })
