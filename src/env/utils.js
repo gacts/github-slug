@@ -16,6 +16,6 @@ function getEnv(name) {
   return undefined
 }
 
-module.exports = {
+export {
   getEnv
 }

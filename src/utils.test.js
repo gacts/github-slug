@@ -1,6 +1,6 @@
-const {beforeEach, describe, test, expect} = require('@jest/globals')
-const envGithub = require('./env/names')
-const {ActionID} = require('./utils')
+import {beforeEach, describe, test, expect} from '@jest/globals'
+import envGithub from './env/names.js'
+import {ActionID} from './utils.js'
 
 beforeEach(() => {
   Object.keys(envGithub).forEach(key => {

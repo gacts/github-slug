@@ -1,4 +1,4 @@
-const {slug} = require('./formatters')
+import {slug} from './formatters.js'
 
 /**
  * Raw version string parser.
@@ -120,6 +120,6 @@ class VersionInfo {
   }
 }
 
-module.exports = {
+export {
   VersionInfo,
 }

@@ -1,8 +1,8 @@
-const {getEnv} = require('./env/utils')
-const envGithub = require('./env/names')
-const {slug} = require('./formatters')
-const {VersionInfo} = require('./version')
-const github = require('@actions/github')
+import {getEnv} from './env/utils.js'
+import envGithub from './env/names.js'
+import {slug} from './formatters.js'
+import {VersionInfo} from './version.js'
+import {context} from '@actions/github'
 
 // references separator
 const separator = '/'
@@ -90,7 +90,7 @@ function currentBranch() {
   const eventName = getEnv(envGithub.GITHUB_EVENT_NAME)
 
   if (eventName !== undefined) { // fix for issue https://github.com/gacts/github-slug/issues/49
-    const ref = github.context.payload['ref']
+    const ref = context.payload['ref']
 
     switch (eventName.toLowerCase()) {
       case 'delete': {// https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#delete
@@ -294,7 +294,7 @@ function version() {
   return fallbackVer
 }
 
-module.exports = {
+export {
   isOnBranch,
   isOnTag,
   currentBranch,

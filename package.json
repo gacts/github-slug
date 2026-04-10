@@ -2,10 +2,11 @@
   "name": "github-slug",
   "description": "GitHub Action to expose slug values of branch/tag/version inside your GitHub workflow",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint --config package.json './src/**/*.js'",
     "build": "ncc build src/index.js -o dist --minify --no-cache",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",

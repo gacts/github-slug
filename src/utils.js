@@ -1,6 +1,6 @@
-const {getEnv} = require('./env/utils')
-const envGithub = require('./env/names')
-const Table = require('cli-table') // docs: <https://github.com/Automattic/cli-table>
+import {getEnv} from './env/utils.js'
+import envGithub from './env/names.js'
+import Table from 'cli-table' // docs: <https://github.com/Automattic/cli-table>
 
 class ActionID {
   /** @var {string|undefined} */
@@ -69,7 +69,7 @@ class CLITable {
   }
 }
 
-module.exports = {
+export {
   ActionID,
   Output,
   CLITable,
