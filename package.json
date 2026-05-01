@@ -23,10 +23,10 @@
   },
   "homepage": "https://github.com/gacts/github-slug#readme",
   "dependencies": {
-    "@actions/core": "^3.0.0",
-    "@actions/github": "^9.0.0",
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
     "cli-table": "^0.3.11",
-    "slugify": "^1.6.8"
+    "slugify": "^1.6.9"
   },
   "devDependencies": {
     "@jest/globals": "^30.3.0",
