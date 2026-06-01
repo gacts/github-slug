@@ -29,10 +29,10 @@
     "slugify": "^1.6.9"
   },
   "devDependencies": {
-    "@jest/globals": "^30.3.0",
+    "@jest/globals": "^30.4.1",
     "@vercel/ncc": "^0.38.4",
     "eslint": "^8.57.0",
-    "jest": "^30.3.0"
+    "jest": "^30.4.2"
   },
   "eslintConfig": {
     "env": {
